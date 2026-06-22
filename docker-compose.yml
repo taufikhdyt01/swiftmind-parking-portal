@@ -65,6 +65,47 @@ services:
       timeout: 5s
       retries: 10
 
+  # --- Application services ---
+
+  identity:
+    build:
+      context: .
+      dockerfile: build/Dockerfile
+      args:
+        SERVICE: identity
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-swiftmind}:${POSTGRES_PASSWORD:-swiftmind}@postgres:5432/${POSTGRES_DB:-swiftmind}?sslmode=disable
+      JWT_SECRET: ${JWT_SECRET:-dev-secret}
+      JWT_ISSUER: ${JWT_ISSUER:-swiftmind}
+      ACCESS_TOKEN_TTL: ${ACCESS_TOKEN_TTL:-24h}
+      PORT: "8081"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  gateway:
+    build:
+      context: .
+      dockerfile: build/Dockerfile
+      args:
+        SERVICE: gateway
+    environment:
+      JWT_SECRET: ${JWT_SECRET:-dev-secret}
+      JWT_ISSUER: ${JWT_ISSUER:-swiftmind}
+      ACCESS_TOKEN_TTL: ${ACCESS_TOKEN_TTL:-24h}
+      IDENTITY_URL: http://identity:8081
+      RULES_URL: http://rules:8082
+      VIOLATION_URL: http://violation:8083
+      PAYMENT_URL: http://payment:8084
+      CORS_ALLOW_ORIGIN: ${CORS_ALLOW_ORIGIN:-http://localhost:3000}
+      PORT: "8080"
+    ports:
+      - "${GATEWAY_PORT:-8080}:8080"
+    depends_on:
+      - identity
+    restart: unless-stopped
+
 volumes:
   postgres_data:
   rabbitmq_data:

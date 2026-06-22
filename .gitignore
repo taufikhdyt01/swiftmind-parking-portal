@@ -1,5 +1,6 @@
-# --- Claude guidance (DO NOT COMMIT) ---
+# --- Claude Code tooling (DO NOT COMMIT) ---
 CLAUDE.md
+.claude/
 
 # --- Assignment brief (Tan Digital's material, not a deliverable; keep out of public repo) ---
 FULLSTACK ASSIGNMENT.md

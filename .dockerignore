@@ -1,0 +1,12 @@
+# Keep the Go build context small and reproducible.
+web/
+bin/
+.git/
+.github/
+docs/
+.claude/
+node_modules/
+*.md
+.env
+.env.*
+!.env.example
