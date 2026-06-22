@@ -39,6 +39,15 @@ func (g *Gateway) Router() http.Handler {
 				r.Get("/", rulesProxy.ServeHTTP)
 				r.With(g.requireRole(domain.RoleOfficer)).Post("/", rulesProxy.ServeHTTP)
 			})
+
+			// Violations: officers submit; officers see all, members see their
+			// own; the photo streams back through the service.
+			violationProxy := g.proxyTo(g.cfg.ViolationURL, "/api/violations")
+			r.Route("/violations", func(r chi.Router) {
+				r.Get("/", violationProxy.ServeHTTP)
+				r.Get("/{id}/photo", violationProxy.ServeHTTP)
+				r.With(g.requireRole(domain.RoleOfficer)).Post("/", violationProxy.ServeHTTP)
+			})
 		})
 	})
 

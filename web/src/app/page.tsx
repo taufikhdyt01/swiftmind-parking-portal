@@ -20,12 +20,12 @@ type RoleCard = { title: string; desc: string; href?: string };
 // for flows built in later phases.
 const ROLE_CARDS: Record<string, RoleCard[]> = {
   officer: [
-    { title: "Submit violation", desc: "Record a parking violation with photo and location." },
+    { title: "Submit violation", desc: "Record a parking violation with photo and location.", href: "/violations/new" },
     { title: "Fine rules", desc: "View and publish new fine-rule versions.", href: "/rules" },
-    { title: "All transactions", desc: "Browse every issued violation and its applied rule version." },
+    { title: "All violations", desc: "Browse every issued violation and its applied rule version.", href: "/violations" },
   ],
   member: [
-    { title: "My violations", desc: "See violations issued against your plates." },
+    { title: "My violations", desc: "See violations issued against your plates.", href: "/violations" },
     { title: "Pay a fine", desc: "Settle an outstanding fine via the payment provider." },
     { title: "My history", desc: "Review past violations, fines, and payment status." },
   ],

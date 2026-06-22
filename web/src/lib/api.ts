@@ -13,10 +13,12 @@ export async function api<T = unknown>(
   path: string,
   options: RequestInit = {},
 ): Promise<T> {
+  // Let the browser set the multipart boundary for FormData bodies.
+  const isFormData = options.body instanceof FormData;
   const res = await fetch(`/api${path}`, {
     credentials: "include",
     headers: {
-      "Content-Type": "application/json",
+      ...(isFormData ? {} : { "Content-Type": "application/json" }),
       ...(options.headers ?? {}),
     },
     ...options,

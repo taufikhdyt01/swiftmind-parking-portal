@@ -44,3 +44,24 @@ export interface RuleVersion {
   created_by: string;
   created_at: string;
 }
+
+export type PaymentStatus = "unpaid" | "paid";
+
+export interface Violation {
+  id: string;
+  plate: string;
+  violation_type: ViolationType;
+  location: string;
+  occurred_at: string;
+  photo_url?: string;
+  owner_email: string;
+  issued_by_email: string;
+  rule_version: number;
+  base_amount: number;
+  time_multiplier: number;
+  repeat_multiplier: number;
+  prior_unpaid_count: number;
+  final_amount: number;
+  payment_status: PaymentStatus;
+  created_at: string;
+}

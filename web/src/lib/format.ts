@@ -14,3 +14,16 @@ export function formatDateTime(iso: string): string {
     timeStyle: "short",
   });
 }
+
+// Format a timestamp in UTC. Violation timestamps are entered as wall-clock time
+// and priced as such, so they are displayed in UTC to stay consistent with the
+// time multiplier that was applied (e.g. 23:30 → night).
+export function formatDateTimeUTC(iso: string): string {
+  return (
+    new Date(iso).toLocaleString("en-GB", {
+      dateStyle: "medium",
+      timeStyle: "short",
+      timeZone: "UTC",
+    }) + " UTC"
+  );
+}
