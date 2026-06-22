@@ -47,6 +47,26 @@ export interface RuleVersion {
 
 export type PaymentStatus = "unpaid" | "paid";
 
+export type InvoiceStatus = "open" | "paid";
+export type PaymentScenario = "success" | "failed";
+
+export interface Invoice {
+  id: string;
+  violation_id: string;
+  plate: string;
+  violation_type: ViolationType;
+  owner_email: string;
+  amount: number;
+  status: InvoiceStatus;
+  created_at: string;
+}
+
+export interface PayResult {
+  status: "paid" | "failed";
+  transaction_id: string;
+  invoice: Invoice;
+}
+
 export interface Violation {
   id: string;
   plate: string;

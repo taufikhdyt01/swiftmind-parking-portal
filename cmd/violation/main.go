@@ -5,12 +5,14 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"os"
 
 	"swiftmind/internal/violation"
 	"swiftmind/pkg/broker"
 	"swiftmind/pkg/config"
 	"swiftmind/pkg/db"
+	"swiftmind/pkg/events"
 	"swiftmind/pkg/httpx"
 	"swiftmind/pkg/logging"
 	"swiftmind/pkg/objstore"
@@ -60,6 +62,20 @@ func main() {
 	if err := svc.Seed(ctx); err != nil {
 		logger.Error("seed", "err", err)
 		os.Exit(1)
+	}
+
+	// When a payment completes, mark the corresponding violation paid.
+	if b != nil {
+		if err := b.Consume("violation.payment-completed", events.RoutingPaymentCompleted, func(body []byte) error {
+			var evt events.PaymentCompleted
+			if err := json.Unmarshal(body, &evt); err != nil {
+				return err
+			}
+			return svc.MarkPaid(context.Background(), evt.ViolationID)
+		}); err != nil {
+			logger.Error("subscribe payment.completed", "err", err)
+			os.Exit(1)
+		}
 	}
 
 	handler := violation.NewHandler(svc).Routes()

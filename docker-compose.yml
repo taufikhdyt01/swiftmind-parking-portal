@@ -127,6 +127,26 @@ services:
         condition: service_started
     restart: unless-stopped
 
+  payment:
+    build:
+      context: .
+      dockerfile: build/Dockerfile
+      args:
+        SERVICE: payment
+    environment:
+      DATABASE_URL: postgres://${POSTGRES_USER:-swiftmind}:${POSTGRES_PASSWORD:-swiftmind}@postgres:5432/${POSTGRES_DB:-swiftmind}?sslmode=disable
+      REDIS_URL: redis://redis:6379/0
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-swiftmind}:${RABBITMQ_PASSWORD:-swiftmind}@rabbitmq:5672/
+      PORT: "8084"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    restart: unless-stopped
+
   gateway:
     build:
       context: .
@@ -149,6 +169,7 @@ services:
       - identity
       - rules
       - violation
+      - payment
     restart: unless-stopped
 
 volumes:

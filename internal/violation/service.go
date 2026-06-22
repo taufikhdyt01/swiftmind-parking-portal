@@ -137,6 +137,12 @@ func (s *Service) Create(ctx context.Context, in CreateInput, photo *Photo) (*Vi
 	return v, nil
 }
 
+// MarkPaid flips a violation to paid. Driven by the payment.completed event so
+// the member no longer owes the fine and it stops counting as a prior unpaid.
+func (s *Service) MarkPaid(ctx context.Context, violationID string) error {
+	return s.store.MarkPaid(ctx, violationID)
+}
+
 // Photo opens the stored photo for a violation, returning its content type.
 func (s *Service) Photo(ctx context.Context, id string) (io.ReadCloser, string, error) {
 	v, err := s.store.Get(ctx, id)
@@ -171,11 +177,12 @@ func (s *Service) publishCreated(ctx context.Context, v *Violation) {
 		return
 	}
 	evt := events.ViolationCreated{
-		ViolationID: v.ID,
-		Plate:       v.Plate,
-		OwnerEmail:  v.OwnerEmail,
-		FinalAmount: v.FinalAmount,
-		CreatedAt:   v.CreatedAt,
+		ViolationID:   v.ID,
+		Plate:         v.Plate,
+		ViolationType: v.ViolationType,
+		OwnerEmail:    v.OwnerEmail,
+		FinalAmount:   v.FinalAmount,
+		CreatedAt:     v.CreatedAt,
 	}
 	if err := s.broker.Publish(ctx, events.RoutingViolationCreated, evt); err != nil {
 		s.logger.Warn("publish violation.created failed", "err", err, "violation_id", v.ID)

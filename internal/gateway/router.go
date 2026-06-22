@@ -48,6 +48,13 @@ func (g *Gateway) Router() http.Handler {
 				r.Get("/{id}/photo", violationProxy.ServeHTTP)
 				r.With(g.requireRole(domain.RoleOfficer)).Post("/", violationProxy.ServeHTTP)
 			})
+
+			// Invoices: officers and members may list (scoped); only members pay.
+			paymentProxy := g.proxyTo(g.cfg.PaymentURL, "/api/invoices")
+			r.Route("/invoices", func(r chi.Router) {
+				r.Get("/", paymentProxy.ServeHTTP)
+				r.With(g.requireRole(domain.RoleMember)).Post("/{id}/pay", paymentProxy.ServeHTTP)
+			})
 		})
 	})
 

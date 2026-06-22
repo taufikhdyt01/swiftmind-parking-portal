@@ -15,11 +15,12 @@ const (
 // ViolationCreated is published when an officer issues a violation. The payment
 // service consumes it to create an invoice.
 type ViolationCreated struct {
-	ViolationID string    `json:"violation_id"`
-	Plate       string    `json:"plate"`
-	OwnerEmail  string    `json:"owner_email"`
-	FinalAmount int64     `json:"final_amount"`
-	CreatedAt   time.Time `json:"created_at"`
+	ViolationID   string    `json:"violation_id"`
+	Plate         string    `json:"plate"`
+	ViolationType string    `json:"violation_type"`
+	OwnerEmail    string    `json:"owner_email"`
+	FinalAmount   int64     `json:"final_amount"`
+	CreatedAt     time.Time `json:"created_at"`
 }
 
 // PaymentCompleted is published when an invoice is paid. The violation service
