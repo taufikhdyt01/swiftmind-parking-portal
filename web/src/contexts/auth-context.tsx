@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import {
   createContext,
   useCallback,
@@ -22,6 +23,7 @@ interface AuthState {
 const AuthContext = createContext<AuthState | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const queryClient = useQueryClient();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -42,19 +44,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     void refresh();
   }, [refresh]);
 
-  const login = useCallback(async (email: string, password: string) => {
-    const { user } = await api<{ user: User }>("/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ email, password }),
-    });
-    setUser(user);
-    return user;
-  }, []);
+  const login = useCallback(
+    async (email: string, password: string) => {
+      const { user } = await api<{ user: User }>("/auth/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      });
+      // Drop any cached data from a previous account before showing the new one.
+      queryClient.clear();
+      setUser(user);
+      return user;
+    },
+    [queryClient],
+  );
 
   const logout = useCallback(async () => {
     await api("/auth/logout", { method: "POST" });
     setUser(null);
-  }, []);
+    queryClient.clear();
+  }, [queryClient]);
 
   return (
     <AuthContext.Provider value={{ user, loading, login, logout, refresh }}>
