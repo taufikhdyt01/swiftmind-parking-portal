@@ -1,0 +1,109 @@
+// ParkWatch — ERD (paste into https://dbdiagram.io → Export PNG/SVG)
+// Each service owns its own tables. Cross-service references are LOGICAL (by
+// stable keys, denormalized at write time) — there are no enforced FKs across
+// service boundaries. Money is integer IDR.
+
+Table users {
+  id            uuid    [pk]
+  email         varchar [unique]
+  password_hash varchar
+  name          varchar
+  role          varchar [note: 'officer | member']
+
+  Note: 'identity service'
+}
+
+Table rule_versions {
+  id         uuid    [pk]
+  version    int     [unique, note: 'monotonic, increments on publish']
+  is_active  boolean [note: 'only one true (partial unique index)']
+  config     jsonb   [note: 'base_amounts, time + repeat multipliers']
+  created_by varchar
+  created_at timestamp
+
+  Note: 'rules service — append-only versions; publishing never updates an existing row'
+}
+
+Table plates {
+  plate       varchar [pk]
+  owner_email varchar
+
+  Note: 'violation service — plate -> member registry'
+}
+
+Table violations {
+  id              uuid    [pk]
+  plate           varchar
+  violation_type  varchar
+  location        varchar
+  occurred_at     timestamp
+  photo_object    varchar  [note: 'MinIO object key']
+  owner_email     varchar
+  issued_by_email varchar
+
+  // ---- FINE SNAPSHOT: captured at issue time, immutable, never recomputed ----
+  rule_version_id   uuid
+  rule_version      int
+  base_amount       bigint
+  time_multiplier   float
+  repeat_multiplier float
+  prior_unpaid_count int
+  final_amount      bigint  [note: 'base x time x repeat']
+  // ---------------------------------------------------------------------------
+
+  payment_status  varchar [note: 'unpaid | paid']
+
+  Note: 'violation service — the snapshot columns are written once; a later rule change cannot alter them'
+}
+
+Table invoices {
+  id              uuid    [pk]
+  violation_id    uuid    [unique]
+  plate           varchar
+  violation_type  varchar
+  owner_email     varchar
+  issued_by_email varchar
+  amount          bigint
+  status          varchar [note: 'open | paid']
+  created_at      timestamp
+
+  Note: 'payment service'
+}
+
+Table payments {
+  id             uuid    [pk]
+  invoice_id     uuid
+  amount         bigint
+  scenario       varchar [note: 'success | failed (test-only input)']
+  status         varchar [note: 'paid | failed']
+  transaction_id varchar
+  created_at     timestamp
+
+  Note: 'payment service'
+}
+
+Table notifications {
+  id              uuid    [pk]
+  recipient_email varchar
+  kind            varchar [note: 'violation_issued | payment_completed']
+  message         varchar
+  violation_id    uuid    [note: 'deep-link target (nullable)']
+  created_at      timestamp
+
+  Note: 'notification service'
+}
+
+// Group tables by owning service for readability in dbdiagram.
+TableGroup identity     { users }
+TableGroup rules        { rule_versions }
+TableGroup violation    { plates violations }
+TableGroup payment      { invoices payments }
+TableGroup notification { notifications }
+
+// Relationships (logical across services; the only real same-service FK is payments.invoice_id).
+Ref: violations.plate           > plates.plate
+Ref: violations.rule_version_id > rule_versions.id  // snapshot reference (value is copied, not live)
+Ref: invoices.violation_id      - violations.id     // created via violation.created event
+Ref: payments.invoice_id        > invoices.id       // same-service FK
+Ref: notifications.recipient_email > users.email
+Ref: plates.owner_email            > users.email

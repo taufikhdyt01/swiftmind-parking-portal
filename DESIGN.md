@@ -30,6 +30,9 @@ denormalized at write time.
 
 ![Data flow between services](docs/data-flow.svg)
 
+*Editable sources: [`docs/data-flow.drawio`](docs/data-flow.drawio) (draw.io) ·
+[`docs/data-flow.puml`](docs/data-flow.puml) (PlantUML).*
+
 **Synchronous (HTTP, request/response):**
 - Browser → Gateway for everything (`/api/*`), cookie-authenticated.
 - `violation → rules`: on submit, the violation service fetches the **active ruleset** to price the
@@ -66,6 +69,9 @@ must see the computed fine immediately.
 ## 3. Entity relationship diagram
 
 ![Entity relationship diagram](docs/erd.svg)
+
+*Editable sources: [`docs/erd.drawio`](docs/erd.drawio) (draw.io) ·
+[`docs/erd.dbml`](docs/erd.dbml) (dbdiagram.io).*
 
 **Rule versioning** is modelled as append-only rows in `rule_versions` (monotonic `version`, a
 single `is_active` row enforced by a partial unique index). Publishing never updates an existing

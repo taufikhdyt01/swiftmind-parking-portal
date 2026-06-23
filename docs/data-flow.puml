@@ -1,0 +1,58 @@
+@startuml parkwatch-data-flow
+' ParkWatch — Data Flow. Render at https://www.plantuml.com/plantuml or a plugin,
+' then Export PNG/SVG.
+title ParkWatch — Data Flow Between Services\nsolid = synchronous HTTP   |   dashed = asynchronous event (RabbitMQ)
+
+skinparam shadowing false
+skinparam defaultFontName Helvetica
+skinparam componentStyle rectangle
+skinparam rectangle {
+  BackgroundColor #FFFFFF
+  BorderColor #334155
+}
+skinparam ArrowColor #334155
+
+actor "Officer / Member" as user
+rectangle "Web App\n(Next.js, one app for both roles)" as web #DBEAFE
+rectangle "API Gateway\nJWT verify · RBAC · cookie · X-User-* headers" as gw #0F172A
+together {
+  rectangle "identity\nusers · login · JWT" as identity #CCFBF1
+  rectangle "rules\nversions · active ruleset" as rules #CCFBF1
+  rectangle "violation\nsubmit · fine snapshot · photo" as violation #CCFBF1
+  rectangle "payment\ninvoices · mock charge" as payment #CCFBF1
+  rectangle "notification\nconsume events · store" as notification #CCFBF1
+}
+queue "RabbitMQ\nparkwatch.events (topic exchange)" as mq #FFEDD5
+
+database "PostgreSQL\n(schema per service)" as pg #F1F5F9
+database "Redis\nruleset cache · pay lock" as redis #F1F5F9
+database "MinIO (S3)\nviolation photos" as minio #F1F5F9
+
+user --> web
+web --> gw : "/api/* (cookie)"
+gw --> identity : login
+gw --> rules
+gw --> violation
+gw --> payment
+gw --> notification : GET /notifications
+
+violation --> rules : active ruleset (sync)
+
+' --- asynchronous events ---
+violation ..> mq : violation.created
+payment   ..> mq : payment.completed
+mq ..> payment      : create invoice
+mq ..> violation    : mark paid
+mq ..> notification : notify member\n+ issuing officer
+
+' --- backing infra ---
+identity --> pg
+rules --> pg
+rules --> redis
+violation --> pg
+violation --> minio
+payment --> pg
+payment --> redis
+notification --> pg
+
+@enduml

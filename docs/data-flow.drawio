@@ -46,19 +46,19 @@
           <mxGeometry x="480" y="630" width="200" height="60" as="geometry" />
         </mxCell>
 
-        <mxCell id="e_web_gw" value="/api/* (cookie)" style="endArrow=block;html=1;strokeColor=#334155;" edge="1" parent="1" source="web" target="gw"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e_gw_id" style="endArrow=block;html=1;strokeColor=#334155;" edge="1" parent="1" source="gw" target="identity"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e_gw_ru" style="endArrow=block;html=1;strokeColor=#334155;" edge="1" parent="1" source="gw" target="rules"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e_gw_vi" style="endArrow=block;html=1;strokeColor=#334155;" edge="1" parent="1" source="gw" target="violation"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e_gw_pa" style="endArrow=block;html=1;strokeColor=#334155;" edge="1" parent="1" source="gw" target="payment"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e_gw_no" style="endArrow=block;html=1;strokeColor=#334155;" edge="1" parent="1" source="gw" target="notification"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e_vi_ru" value="active ruleset (sync)" style="endArrow=block;html=1;strokeColor=#334155;" edge="1" parent="1" source="violation" target="rules"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_web_gw" value="/api/* (cookie)" style="endArrow=block;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;strokeColor=#334155;" edge="1" parent="1" source="web" target="gw"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_gw_id" style="endArrow=block;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;strokeColor=#334155;" edge="1" parent="1" source="gw" target="identity"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_gw_ru" style="endArrow=block;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;strokeColor=#334155;" edge="1" parent="1" source="gw" target="rules"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_gw_vi" style="endArrow=block;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;strokeColor=#334155;" edge="1" parent="1" source="gw" target="violation"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_gw_pa" style="endArrow=block;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;strokeColor=#334155;" edge="1" parent="1" source="gw" target="payment"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_gw_no" style="endArrow=block;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;strokeColor=#334155;" edge="1" parent="1" source="gw" target="notification"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_vi_ru" value="active ruleset (sync)" style="endArrow=block;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;strokeColor=#334155;" edge="1" parent="1" source="violation" target="rules"><mxGeometry relative="1" as="geometry"/></mxCell>
 
-        <mxCell id="e_vi_mq" value="violation.created" style="endArrow=block;html=1;dashed=1;strokeColor=#ea580c;fontColor=#c2410c;" edge="1" parent="1" source="violation" target="mq"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e_pa_mq" value="payment.completed" style="endArrow=block;html=1;dashed=1;strokeColor=#ea580c;fontColor=#c2410c;" edge="1" parent="1" source="payment" target="mq"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e_mq_pa" value="create invoice" style="endArrow=block;html=1;dashed=1;strokeColor=#ea580c;fontColor=#c2410c;" edge="1" parent="1" source="mq" target="payment"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e_mq_vi" value="mark paid" style="endArrow=block;html=1;dashed=1;strokeColor=#ea580c;fontColor=#c2410c;" edge="1" parent="1" source="mq" target="violation"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="e_mq_no" value="notify member + officer" style="endArrow=block;html=1;dashed=1;strokeColor=#ea580c;fontColor=#c2410c;" edge="1" parent="1" source="mq" target="notification"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_vi_mq" value="violation.created" style="endArrow=block;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;dashed=1;strokeColor=#ea580c;fontColor=#c2410c;" edge="1" parent="1" source="violation" target="mq"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_pa_mq" value="payment.completed" style="endArrow=block;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;dashed=1;strokeColor=#ea580c;fontColor=#c2410c;" edge="1" parent="1" source="payment" target="mq"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_mq_pa" value="create invoice" style="endArrow=block;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;dashed=1;strokeColor=#ea580c;fontColor=#c2410c;" edge="1" parent="1" source="mq" target="payment"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_mq_vi" value="mark paid" style="endArrow=block;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;dashed=1;strokeColor=#ea580c;fontColor=#c2410c;" edge="1" parent="1" source="mq" target="violation"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e_mq_no" value="notify member + officer" style="endArrow=block;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;dashed=1;strokeColor=#ea580c;fontColor=#c2410c;" edge="1" parent="1" source="mq" target="notification"><mxGeometry relative="1" as="geometry"/></mxCell>
       </root>
     </mxGraphModel>
   </diagram>

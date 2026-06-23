@@ -40,12 +40,12 @@
           <mxGeometry x="40" y="470" width="230" height="140" as="geometry" />
         </mxCell>
 
-        <mxCell id="r_vi_pl" value="plate" style="endArrow=open;html=1;strokeColor=#64748b;" edge="1" parent="1" source="violations" target="plates"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="r_snap_rule" value="snapshots rule_version_id (copied, not live FK)" style="endArrow=open;html=1;dashed=1;strokeColor=#d97706;fontColor=#b45309;" edge="1" parent="1" source="snapshot" target="rulev"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="r_inv_vi" value="violation_id (via event)" style="endArrow=open;html=1;dashed=1;strokeColor=#9333ea;fontColor=#7e22ce;" edge="1" parent="1" source="invoices" target="violations"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="r_pay_inv" value="invoice_id (FK)" style="endArrow=open;html=1;strokeColor=#9333ea;fontColor=#7e22ce;" edge="1" parent="1" source="payments" target="invoices"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="r_not_us" value="recipient_email ⇢ users.email" style="endArrow=open;html=1;dashed=1;strokeColor=#64748b;" edge="1" parent="1" source="notifications" target="users"><mxGeometry relative="1" as="geometry"/></mxCell>
-        <mxCell id="r_pl_us" value="owner_email ⇢ users.email" style="endArrow=open;html=1;dashed=1;strokeColor=#64748b;" edge="1" parent="1" source="plates" target="users"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_vi_pl" value="plate" style="endArrow=open;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;strokeColor=#64748b;" edge="1" parent="1" source="violations" target="plates"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_snap_rule" value="snapshots rule_version_id (copied, not live FK)" style="endArrow=open;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;dashed=1;strokeColor=#d97706;fontColor=#b45309;" edge="1" parent="1" source="snapshot" target="rulev"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_inv_vi" value="violation_id (via event)" style="endArrow=open;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;dashed=1;strokeColor=#9333ea;fontColor=#7e22ce;" edge="1" parent="1" source="invoices" target="violations"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_pay_inv" value="invoice_id (FK)" style="endArrow=open;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;strokeColor=#9333ea;fontColor=#7e22ce;" edge="1" parent="1" source="payments" target="invoices"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_not_us" value="recipient_email ⇢ users.email" style="endArrow=open;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;dashed=1;strokeColor=#64748b;" edge="1" parent="1" source="notifications" target="users"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_pl_us" value="owner_email ⇢ users.email" style="endArrow=open;html=1;edgeStyle=orthogonalEdgeStyle;rounded=0;jettySize=auto;dashed=1;strokeColor=#64748b;" edge="1" parent="1" source="plates" target="users"><mxGeometry relative="1" as="geometry"/></mxCell>
       </root>
     </mxGraphModel>
   </diagram>
