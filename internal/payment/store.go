@@ -23,6 +23,7 @@ type Invoice struct {
 	Plate         string    `json:"plate"`
 	ViolationType string    `json:"violation_type"`
 	OwnerEmail    string    `json:"owner_email"`
+	IssuedByEmail string    `json:"issued_by_email"`
 	Amount        int64     `json:"amount"`
 	Status        string    `json:"status"`
 	TransactionID string    `json:"transaction_id,omitempty"`
@@ -32,8 +33,8 @@ type Invoice struct {
 // invoiceSelect joins each invoice to its latest successful payment so the
 // transaction reference can be shown once paid.
 const invoiceSelect = `
-	SELECT i.id, i.violation_id, i.plate, i.violation_type, i.owner_email, i.amount, i.status, i.created_at,
-	       p.transaction_id
+	SELECT i.id, i.violation_id, i.plate, i.violation_type, i.owner_email, i.issued_by_email,
+	       i.amount, i.status, i.created_at, p.transaction_id
 	  FROM invoices i
 	  LEFT JOIN LATERAL (
 	      SELECT transaction_id FROM payments
@@ -66,10 +67,11 @@ func (s *Store) Migrate(ctx context.Context) error {
 // violation, so a redelivered event does not create a second invoice).
 func (s *Store) CreateInvoice(ctx context.Context, inv *Invoice) error {
 	_, err := s.db.Exec(ctx,
-		`INSERT INTO invoices (violation_id, plate, violation_type, owner_email, amount)
-		 VALUES ($1, $2, $3, $4, $5)
+		`INSERT INTO invoices (violation_id, plate, violation_type, owner_email, issued_by_email, amount)
+		 VALUES ($1, $2, $3, $4, $5, $6)
 		 ON CONFLICT (violation_id) DO NOTHING`,
-		inv.ViolationID, inv.Plate, inv.ViolationType, db.Nullable(inv.OwnerEmail), inv.Amount)
+		inv.ViolationID, inv.Plate, inv.ViolationType, db.Nullable(inv.OwnerEmail),
+		db.Nullable(inv.IssuedByEmail), inv.Amount)
 	return err
 }
 
@@ -126,16 +128,20 @@ func (s *Store) InsertPayment(ctx context.Context, p Payment) error {
 
 func scanInvoice(rs db.RowScanner) (*Invoice, error) {
 	var (
-		inv   Invoice
-		owner *string
-		txn   *string
+		inv      Invoice
+		owner    *string
+		issuedBy *string
+		txn      *string
 	)
 	if err := rs.Scan(&inv.ID, &inv.ViolationID, &inv.Plate, &inv.ViolationType,
-		&owner, &inv.Amount, &inv.Status, &inv.CreatedAt, &txn); err != nil {
+		&owner, &issuedBy, &inv.Amount, &inv.Status, &inv.CreatedAt, &txn); err != nil {
 		return nil, err
 	}
 	if owner != nil {
 		inv.OwnerEmail = *owner
+	}
+	if issuedBy != nil {
+		inv.IssuedByEmail = *issuedBy
 	}
 	if txn != nil {
 		inv.TransactionID = *txn

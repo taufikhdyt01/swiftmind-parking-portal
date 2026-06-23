@@ -4,11 +4,13 @@ CREATE TABLE IF NOT EXISTS invoices (
     violation_id   UUID NOT NULL UNIQUE,
     plate          TEXT NOT NULL,
     violation_type TEXT NOT NULL,
-    owner_email    TEXT,
+    owner_email      TEXT,
+    issued_by_email  TEXT,
     amount         BIGINT NOT NULL,
     status         TEXT NOT NULL DEFAULT 'open',   -- open | paid
     created_at     TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+ALTER TABLE invoices ADD COLUMN IF NOT EXISTS issued_by_email TEXT;
 
 CREATE TABLE IF NOT EXISTS payments (
     id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),

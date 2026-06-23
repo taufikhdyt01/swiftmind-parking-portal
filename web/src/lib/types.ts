@@ -76,6 +76,7 @@ export interface Notification {
   id: string;
   kind: string;
   message: string;
+  violation_id?: string;
   created_at: string;
 }
 

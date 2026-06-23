@@ -19,16 +19,20 @@ type ViolationCreated struct {
 	Plate         string    `json:"plate"`
 	ViolationType string    `json:"violation_type"`
 	OwnerEmail    string    `json:"owner_email"`
+	IssuedByEmail string    `json:"issued_by_email"`
 	FinalAmount   int64     `json:"final_amount"`
 	CreatedAt     time.Time `json:"created_at"`
 }
 
 // PaymentCompleted is published when an invoice is paid. The violation service
-// marks the violation paid; the notification service notifies the member.
+// marks the violation paid; the notification service notifies the member and the
+// officer who issued the violation.
 type PaymentCompleted struct {
 	InvoiceID     string    `json:"invoice_id"`
 	ViolationID   string    `json:"violation_id"`
+	Plate         string    `json:"plate"`
 	OwnerEmail    string    `json:"owner_email"`
+	IssuedByEmail string    `json:"issued_by_email"`
 	Amount        int64     `json:"amount"`
 	TransactionID string    `json:"transaction_id"`
 	PaidAt        time.Time `json:"paid_at"`

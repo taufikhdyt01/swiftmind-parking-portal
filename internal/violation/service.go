@@ -199,6 +199,7 @@ func (s *Service) publishCreated(ctx context.Context, v *Violation) {
 		Plate:         v.Plate,
 		ViolationType: v.ViolationType,
 		OwnerEmail:    v.OwnerEmail,
+		IssuedByEmail: v.IssuedByEmail,
 		FinalAmount:   v.FinalAmount,
 		CreatedAt:     v.CreatedAt,
 	}

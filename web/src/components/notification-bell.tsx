@@ -26,11 +26,10 @@ export function NotificationBell() {
   });
   const items = data ?? [];
 
-  // Both notification kinds relate to the member's violations, so a click takes
-  // them to the violations & history view.
-  function openHistory() {
+  // Deep-link to the related violation when known, otherwise the list.
+  function openTarget(violationId?: string) {
     setOpen(false);
-    router.push("/violations");
+    router.push(violationId ? `/violations/${violationId}` : "/violations");
   }
 
   return (
@@ -59,7 +58,7 @@ export function NotificationBell() {
             {items.slice(0, 15).map((n) => (
               <button
                 key={n.id}
-                onClick={openHistory}
+                onClick={() => openTarget(n.violation_id)}
                 className="hover:bg-accent block w-full border-b px-3 py-2 text-left transition-colors last:border-0"
               >
                 <p className="text-sm">{n.message}</p>

@@ -54,6 +54,7 @@ func (s *Service) CreateInvoiceFromEvent(ctx context.Context, evt events.Violati
 		Plate:         evt.Plate,
 		ViolationType: evt.ViolationType,
 		OwnerEmail:    evt.OwnerEmail,
+		IssuedByEmail: evt.IssuedByEmail,
 		Amount:        evt.FinalAmount,
 	})
 }
@@ -148,7 +149,9 @@ func (s *Service) publishCompleted(ctx context.Context, inv *Invoice, txnID stri
 	evt := events.PaymentCompleted{
 		InvoiceID:     inv.ID,
 		ViolationID:   inv.ViolationID,
+		Plate:         inv.Plate,
 		OwnerEmail:    inv.OwnerEmail,
+		IssuedByEmail: inv.IssuedByEmail,
 		Amount:        inv.Amount,
 		TransactionID: txnID,
 		PaidAt:        time.Now(),

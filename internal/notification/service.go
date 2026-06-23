@@ -28,17 +28,27 @@ func (s *Service) HandleViolationCreated(ctx context.Context, evt events.Violati
 	}
 	msg := fmt.Sprintf("A %s violation was issued for plate %s. Fine: %s.",
 		humanize(evt.ViolationType), evt.Plate, idr(evt.FinalAmount))
-	return s.store.Insert(ctx, evt.OwnerEmail, KindViolationIssued, msg)
+	return s.store.Insert(ctx, evt.OwnerEmail, KindViolationIssued, msg, evt.ViolationID)
 }
 
-// HandlePaymentCompleted notifies the member that their payment succeeded.
+// HandlePaymentCompleted notifies the member that paid and the officer who
+// issued the violation.
 func (s *Service) HandlePaymentCompleted(ctx context.Context, evt events.PaymentCompleted) error {
-	if evt.OwnerEmail == "" {
-		return nil
+	if evt.OwnerEmail != "" {
+		msg := fmt.Sprintf("Your payment of %s was successful. Transaction %s.",
+			idr(evt.Amount), evt.TransactionID)
+		if err := s.store.Insert(ctx, evt.OwnerEmail, KindPaymentCompleted, msg, evt.ViolationID); err != nil {
+			return err
+		}
 	}
-	msg := fmt.Sprintf("Your payment of %s was successful. Transaction %s.",
-		idr(evt.Amount), evt.TransactionID)
-	return s.store.Insert(ctx, evt.OwnerEmail, KindPaymentCompleted, msg)
+	if evt.IssuedByEmail != "" {
+		msg := fmt.Sprintf("A fine you issued for plate %s was paid (%s).",
+			evt.Plate, idr(evt.Amount))
+		if err := s.store.Insert(ctx, evt.IssuedByEmail, KindPaymentCompleted, msg, evt.ViolationID); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // List returns a recipient's notifications.
