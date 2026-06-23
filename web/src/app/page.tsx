@@ -51,13 +51,13 @@ export default function HomePage() {
 
         <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {cards.map((card) => (
-            <Link key={card.title} href={card.href}>
+            <Link key={card.title} href={card.href} className="h-full">
               <Card className="hover:border-primary h-full cursor-pointer transition-colors">
                 <CardHeader>
                   <CardTitle className="text-base">{card.title}</CardTitle>
                   <CardDescription>{card.desc}</CardDescription>
                 </CardHeader>
-                <div className="px-6 pb-4">
+                <div className="mt-auto px-6 pb-4">
                   <Badge>Open</Badge>
                 </div>
               </Card>
