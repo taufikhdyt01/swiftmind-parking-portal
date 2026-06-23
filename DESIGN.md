@@ -28,10 +28,9 @@ denormalized at write time.
 
 ## 2. Data flow
 
-![Data flow between services](docs/data-flow.svg)
+![Data flow between services](docs/data-flow-drawio.svg)
 
-*Editable sources: [`docs/data-flow.drawio`](docs/data-flow.drawio) (draw.io) ·
-[`docs/data-flow.puml`](docs/data-flow.puml) (PlantUML).*
+*Editable source: [`docs/data-flow.drawio`](docs/data-flow.drawio) (draw.io).*
 
 **Synchronous (HTTP, request/response):**
 - Browser → Gateway for everything (`/api/*`), cookie-authenticated.
@@ -68,10 +67,9 @@ must see the computed fine immediately.
 
 ## 3. Entity relationship diagram
 
-![Entity relationship diagram](docs/erd.svg)
+![Entity relationship diagram](docs/erd-dbml.svg)
 
-*Editable sources: [`docs/erd.drawio`](docs/erd.drawio) (draw.io) ·
-[`docs/erd.dbml`](docs/erd.dbml) (dbdiagram.io).*
+*Editable source: [`docs/erd.dbml`](docs/erd.dbml) (dbdiagram.io).*
 
 **Rule versioning** is modelled as append-only rows in `rule_versions` (monotonic `version`, a
 single `is_active` row enforced by a partial unique index). Publishing never updates an existing
