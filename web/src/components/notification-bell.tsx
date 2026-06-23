@@ -2,6 +2,8 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { Bell } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 import { buttonVariants } from "@/components/ui/button";
 import {
@@ -14,6 +16,9 @@ import { formatDateTime } from "@/lib/format";
 import { listNotifications } from "@/lib/notifications";
 
 export function NotificationBell() {
+  const router = useRouter();
+  const [open, setOpen] = useState(false);
+
   const { data } = useQuery({
     queryKey: ["notifications"],
     queryFn: listNotifications,
@@ -21,8 +26,15 @@ export function NotificationBell() {
   });
   const items = data ?? [];
 
+  // Both notification kinds relate to the member's violations, so a click takes
+  // them to the violations & history view.
+  function openHistory() {
+    setOpen(false);
+    router.push("/violations");
+  }
+
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger
         aria-label="Notifications"
         className={cn(buttonVariants({ variant: "outline", size: "icon" }), "relative")}
@@ -45,12 +57,16 @@ export function NotificationBell() {
         ) : (
           <div className="max-h-80 overflow-y-auto">
             {items.slice(0, 15).map((n) => (
-              <div key={n.id} className="border-b px-3 py-2 last:border-0">
+              <button
+                key={n.id}
+                onClick={openHistory}
+                className="hover:bg-accent block w-full border-b px-3 py-2 text-left transition-colors last:border-0"
+              >
                 <p className="text-sm">{n.message}</p>
                 <p className="text-muted-foreground mt-0.5 text-xs">
                   {formatDateTime(n.created_at)}
                 </p>
-              </div>
+              </button>
             ))}
           </div>
         )}
