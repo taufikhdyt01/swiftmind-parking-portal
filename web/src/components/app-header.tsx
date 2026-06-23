@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 
 import { ModeToggle } from "@/components/mode-toggle";
+import { NotificationBell } from "@/components/notification-bell";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/auth-context";
@@ -31,6 +32,7 @@ export function AppHeader() {
           <span className="text-muted-foreground hidden text-sm sm:inline">
             {user.name}
           </span>
+          <NotificationBell />
           <ModeToggle />
           <Button variant="outline" size="sm" onClick={onLogout}>
             Sign out

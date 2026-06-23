@@ -25,7 +25,9 @@ func Connect(url string) (*Broker, error) {
 		conn *amqp.Connection
 		err  error
 	)
-	deadline := time.Now().Add(30 * time.Second)
+	// RabbitMQ's Erlang VM can take a while to accept connections on a cold
+	// `docker compose up`, so retry generously before giving up.
+	deadline := time.Now().Add(60 * time.Second)
 	for {
 		conn, err = amqp.Dial(url)
 		if err == nil {
@@ -34,7 +36,7 @@ func Connect(url string) (*Broker, error) {
 		if time.Now().After(deadline) {
 			return nil, err
 		}
-		time.Sleep(time.Second)
+		time.Sleep(2 * time.Second)
 	}
 
 	ch, err := conn.Channel()

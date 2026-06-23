@@ -55,6 +55,10 @@ func (g *Gateway) Router() http.Handler {
 				r.Get("/", paymentProxy.ServeHTTP)
 				r.With(g.requireRole(domain.RoleMember)).Post("/{id}/pay", paymentProxy.ServeHTTP)
 			})
+
+			// Notifications: each user reads their own.
+			notificationProxy := g.proxyTo(g.cfg.NotificationURL, "/api/notifications")
+			r.Get("/notifications", notificationProxy.ServeHTTP)
 		})
 	})
 

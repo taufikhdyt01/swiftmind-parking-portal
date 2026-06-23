@@ -67,6 +67,13 @@ export interface PayResult {
   invoice: Invoice;
 }
 
+export interface Notification {
+  id: string;
+  kind: string;
+  message: string;
+  created_at: string;
+}
+
 export interface Violation {
   id: string;
   plate: string;

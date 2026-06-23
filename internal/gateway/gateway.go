@@ -13,13 +13,14 @@ import (
 
 // Config holds the downstream service URLs and cookie behaviour.
 type Config struct {
-	IdentityURL  string
-	RulesURL     string
-	ViolationURL string
-	PaymentURL   string
-	CookieName   string
-	CookieSecure bool
-	AllowOrigin  string
+	IdentityURL     string
+	RulesURL        string
+	ViolationURL    string
+	PaymentURL      string
+	NotificationURL string
+	CookieName      string
+	CookieSecure    bool
+	AllowOrigin     string
 }
 
 // Gateway wires the JWT manager, config, and an HTTP client for service calls.
