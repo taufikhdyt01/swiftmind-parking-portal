@@ -119,8 +119,16 @@ export default function PayPage() {
                           </TableCell>
                           <TableCell>
                             {inv.status === "paid" ? (
-                              <div className="text-muted-foreground text-right font-mono text-xs whitespace-nowrap">
-                                {inv.transaction_id ?? "—"}
+                              <div className="text-right">
+                                <div className="text-muted-foreground font-mono text-xs whitespace-nowrap">
+                                  {inv.transaction_id ?? "—"}
+                                </div>
+                                <button
+                                  onClick={() => router.push(`/receipt/${inv.id}`)}
+                                  className="mt-0.5 text-xs underline"
+                                >
+                                  Print receipt
+                                </button>
                               </div>
                             ) : (
                               <div className="flex items-center justify-end gap-2">
