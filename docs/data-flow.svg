@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 720" font-family="Segoe UI, Arial, sans-serif" font-size="13">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#334155"/>
+    </marker>
+    <marker id="arrowAsync" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#ea580c"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1040" height="720" fill="#ffffff"/>
+  <text x="24" y="34" font-size="20" font-weight="700" fill="#0f172a">Swiftmind — Data Flow Between Services</text>
+  <text x="24" y="56" fill="#64748b">Solid = synchronous HTTP · Dashed orange = asynchronous event (RabbitMQ topic exchange)</text>
+
+  <!-- Frontend -->
+  <rect x="430" y="80" width="180" height="48" rx="8" fill="#dbeafe" stroke="#3b82f6"/>
+  <text x="520" y="103" text-anchor="middle" font-weight="600" fill="#1e3a8a">Web App (Next.js)</text>
+  <text x="520" y="119" text-anchor="middle" fill="#1e40af" font-size="11">Officer + Member, one app</text>
+
+  <!-- Gateway -->
+  <rect x="360" y="168" width="320" height="50" rx="8" fill="#0f172a"/>
+  <text x="520" y="190" text-anchor="middle" font-weight="700" fill="#ffffff">API Gateway — single entrypoint</text>
+  <text x="520" y="207" text-anchor="middle" fill="#cbd5e1" font-size="11">JWT verify · RBAC · sets httpOnly cookie · X-User-* headers</text>
+
+  <line x1="520" y1="128" x2="520" y2="166" stroke="#334155" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="532" y="150" fill="#475569" font-size="11">/api/* (cookie)</text>
+
+  <!-- Services row -->
+  <g>
+    <rect x="24" y="300" width="150" height="64" rx="8" fill="#ccfbf1" stroke="#0d9488"/>
+    <text x="99" y="326" text-anchor="middle" font-weight="600" fill="#0f766e">identity</text>
+    <text x="99" y="344" text-anchor="middle" fill="#115e59" font-size="11">users · login · JWT</text>
+
+    <rect x="196" y="300" width="150" height="64" rx="8" fill="#ccfbf1" stroke="#0d9488"/>
+    <text x="271" y="326" text-anchor="middle" font-weight="600" fill="#0f766e">rules</text>
+    <text x="271" y="344" text-anchor="middle" fill="#115e59" font-size="11">versions · active set</text>
+
+    <rect x="368" y="300" width="150" height="64" rx="8" fill="#ccfbf1" stroke="#0d9488"/>
+    <text x="443" y="324" text-anchor="middle" font-weight="600" fill="#0f766e">violation</text>
+    <text x="443" y="341" text-anchor="middle" fill="#115e59" font-size="11">submit · fine</text>
+    <text x="443" y="355" text-anchor="middle" fill="#115e59" font-size="11">snapshot · photo</text>
+
+    <rect x="540" y="300" width="150" height="64" rx="8" fill="#ccfbf1" stroke="#0d9488"/>
+    <text x="615" y="326" text-anchor="middle" font-weight="600" fill="#0f766e">payment</text>
+    <text x="615" y="344" text-anchor="middle" fill="#115e59" font-size="11">invoices · charge</text>
+
+    <rect x="712" y="300" width="150" height="64" rx="8" fill="#ccfbf1" stroke="#0d9488"/>
+    <text x="787" y="326" text-anchor="middle" font-weight="600" fill="#0f766e">notification</text>
+    <text x="787" y="344" text-anchor="middle" fill="#115e59" font-size="11">consume · store</text>
+  </g>
+
+  <!-- Gateway to services (sync) -->
+  <line x1="430" y1="218" x2="99" y2="298" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="470" y1="218" x2="271" y2="298" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="520" y1="218" x2="443" y2="298" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="575" y1="218" x2="615" y2="298" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="700" y="250" fill="#475569" font-size="11">GET /notifications</text>
+  <line x1="620" y1="218" x2="787" y2="298" stroke="#334155" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- violation -> rules (sync) -->
+  <path d="M368,332 C355,332 355,332 346,332" stroke="#334155" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+  <text x="300" y="288" fill="#475569" font-size="11">active ruleset (sync)</text>
+
+  <!-- RabbitMQ -->
+  <rect x="300" y="452" width="440" height="44" rx="8" fill="#ffedd5" stroke="#ea580c"/>
+  <text x="520" y="479" text-anchor="middle" font-weight="700" fill="#9a3412">RabbitMQ — swiftmind.events (topic exchange)</text>
+
+  <!-- async edges -->
+  <!-- violation.created -> payment & notification -->
+  <path d="M443,364 L443,474 L490,474" stroke="#ea580c" stroke-width="1.6" fill="none" stroke-dasharray="6 4" marker-end="url(#arrowAsync)"/>
+  <text x="360" y="420" fill="#c2410c" font-size="11">violation.created</text>
+  <path d="M560,496 L615,496 L615,366" stroke="#ea580c" stroke-width="1.6" fill="none" stroke-dasharray="6 4" marker-end="url(#arrowAsync)"/>
+  <text x="568" y="540" fill="#c2410c" font-size="11">→ create invoice</text>
+  <path d="M620,496 L787,496 L787,366" stroke="#ea580c" stroke-width="1.6" fill="none" stroke-dasharray="6 4" marker-end="url(#arrowAsync)"/>
+  <text x="690" y="560" fill="#c2410c" font-size="11">→ notify member</text>
+
+  <!-- payment.completed -> violation & notification -->
+  <path d="M600,364 L600,452" stroke="#ea580c" stroke-width="1.6" fill="none" stroke-dasharray="6 4" marker-end="url(#arrowAsync)"/>
+  <text x="606" y="408" fill="#c2410c" font-size="11">payment.completed</text>
+  <path d="M470,474 L443,474 L443,366" stroke="#ea580c" stroke-width="1.6" fill="none" stroke-dasharray="6 4" marker-end="url(#arrowAsync)"/>
+  <text x="300" y="448" fill="#c2410c" font-size="11">→ mark violation paid</text>
+
+  <!-- Infra -->
+  <text x="24" y="600" font-size="14" font-weight="700" fill="#0f172a">Backing infrastructure</text>
+  <rect x="24" y="616" width="200" height="64" rx="8" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="124" y="642" text-anchor="middle" font-weight="600" fill="#334155">PostgreSQL</text>
+  <text x="124" y="660" text-anchor="middle" fill="#475569" font-size="11">a schema per service</text>
+
+  <rect x="244" y="616" width="200" height="64" rx="8" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="344" y="642" text-anchor="middle" font-weight="600" fill="#334155">Redis</text>
+  <text x="344" y="660" text-anchor="middle" fill="#475569" font-size="11">active-ruleset cache · pay lock</text>
+
+  <rect x="464" y="616" width="200" height="64" rx="8" fill="#f1f5f9" stroke="#94a3b8"/>
+  <text x="564" y="642" text-anchor="middle" font-weight="600" fill="#334155">MinIO (S3)</text>
+  <text x="564" y="660" text-anchor="middle" fill="#475569" font-size="11">violation photos</text>
+
+  <rect x="684" y="616" width="200" height="64" rx="8" fill="#ffedd5" stroke="#ea580c"/>
+  <text x="784" y="642" text-anchor="middle" font-weight="600" fill="#9a3412">RabbitMQ</text>
+  <text x="784" y="660" text-anchor="middle" fill="#b45309" font-size="11">async event bus</text>
+
+  <!-- infra connectors -->
+  <line x1="271" y1="364" x2="320" y2="614" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 3"/>
+  <line x1="615" y1="364" x2="360" y2="614" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 3"/>
+  <line x1="443" y1="364" x2="540" y2="614" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 3"/>
+</svg>

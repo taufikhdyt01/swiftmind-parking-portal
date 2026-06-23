@@ -148,7 +148,11 @@ export default function PayPage() {
                                   }
                                 >
                                   <SelectTrigger className="w-32" size="sm">
-                                    <SelectValue />
+                                    <SelectValue>
+                                      {(value: string) =>
+                                        value === "success" ? "Success" : "Failed"
+                                      }
+                                    </SelectValue>
                                   </SelectTrigger>
                                   <SelectContent>
                                     <SelectItem value="success">Success</SelectItem>

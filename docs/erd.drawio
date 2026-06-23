@@ -1,0 +1,52 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram name="ERD" id="erd-1">
+    <mxGraphModel dx="1120" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1150" pageHeight="820" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <mxCell id="title" value="Swiftmind — ERD (each service owns its tables; dashed = logical cross-service reference; money = integer IDR)" style="text;html=1;fontSize=15;fontStyle=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1000" height="26" as="geometry" />
+        </mxCell>
+
+        <mxCell id="users" value="users  (identity)&#10;&#10;id  PK uuid&#10;email  unique&#10;password_hash · name&#10;role  (officer | member)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fillColor=#ffffff;strokeColor=#0d9488;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="230" height="120" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rulev" value="rule_versions  (rules)&#10;&#10;id  PK uuid&#10;version  unique, incrementing&#10;is_active  (only one true)&#10;config  JSONB (base_amounts,&#10;   time/repeat multipliers)&#10;created_by · created_at" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fillColor=#ffffff;strokeColor=#2563eb;" vertex="1" parent="1">
+          <mxGeometry x="850" y="80" width="260" height="160" as="geometry" />
+        </mxCell>
+
+        <mxCell id="plates" value="plates  (violation)&#10;&#10;plate  PK&#10;owner_email" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fillColor=#ffffff;strokeColor=#0d9488;" vertex="1" parent="1">
+          <mxGeometry x="40" y="300" width="230" height="84" as="geometry" />
+        </mxCell>
+
+        <mxCell id="violations" value="violations  (violation)&#10;&#10;id  PK uuid&#10;plate · owner_email&#10;violation_type · location&#10;occurred_at · photo_object&#10;issued_by_email&#10;payment_status  (unpaid | paid)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fillColor=#ffffff;strokeColor=#0d9488;" vertex="1" parent="1">
+          <mxGeometry x="360" y="300" width="300" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="snapshot" value="FINE SNAPSHOT (immutable, captured at issue):&#10;rule_version_id · rule_version&#10;base_amount&#10;time_multiplier · repeat_multiplier&#10;prior_unpaid_count&#10;final_amount  = base × time × repeat (never recomputed)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fillColor=#fef3c7;strokeColor=#d97706;fontColor=#78350f;" vertex="1" parent="1">
+          <mxGeometry x="360" y="456" width="300" height="124" as="geometry" />
+        </mxCell>
+
+        <mxCell id="invoices" value="invoices  (payment)&#10;&#10;id  PK uuid&#10;violation_id  unique&#10;plate · violation_type&#10;owner_email · amount&#10;status  (open | paid)" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fillColor=#ffffff;strokeColor=#9333ea;" vertex="1" parent="1">
+          <mxGeometry x="760" y="330" width="300" height="140" as="geometry" />
+        </mxCell>
+
+        <mxCell id="payments" value="payments  (payment)&#10;&#10;id  PK uuid&#10;invoice_id  FK → invoices.id&#10;amount · scenario&#10;status  (paid | failed)&#10;transaction_id" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fillColor=#ffffff;strokeColor=#9333ea;" vertex="1" parent="1">
+          <mxGeometry x="760" y="520" width="300" height="140" as="geometry" />
+        </mxCell>
+
+        <mxCell id="notifications" value="notifications  (notification)&#10;&#10;id  PK uuid&#10;recipient_email&#10;kind&#10;message&#10;created_at" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;spacingLeft=8;spacingTop=6;fillColor=#ffffff;strokeColor=#dc2626;" vertex="1" parent="1">
+          <mxGeometry x="40" y="470" width="230" height="140" as="geometry" />
+        </mxCell>
+
+        <mxCell id="r_vi_pl" value="plate" style="endArrow=open;html=1;strokeColor=#64748b;" edge="1" parent="1" source="violations" target="plates"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_snap_rule" value="snapshots rule_version_id (copied, not live FK)" style="endArrow=open;html=1;dashed=1;strokeColor=#d97706;fontColor=#b45309;" edge="1" parent="1" source="snapshot" target="rulev"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_inv_vi" value="violation_id (via event)" style="endArrow=open;html=1;dashed=1;strokeColor=#9333ea;fontColor=#7e22ce;" edge="1" parent="1" source="invoices" target="violations"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_pay_inv" value="invoice_id (FK)" style="endArrow=open;html=1;strokeColor=#9333ea;fontColor=#7e22ce;" edge="1" parent="1" source="payments" target="invoices"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_not_us" value="recipient_email ⇢ users.email" style="endArrow=open;html=1;dashed=1;strokeColor=#64748b;" edge="1" parent="1" source="notifications" target="users"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="r_pl_us" value="owner_email ⇢ users.email" style="endArrow=open;html=1;dashed=1;strokeColor=#64748b;" edge="1" parent="1" source="plates" target="users"><mxGeometry relative="1" as="geometry"/></mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

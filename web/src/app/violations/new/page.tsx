@@ -118,7 +118,13 @@ export default function NewViolationPage() {
                 <Label>Violation type</Label>
                 <Select value={type} onValueChange={(v) => v && setType(v)}>
                   <SelectTrigger>
-                    <SelectValue />
+                    <SelectValue>
+                      {(value: string) =>
+                        VIOLATION_TYPE_LABELS[
+                          value as keyof typeof VIOLATION_TYPE_LABELS
+                        ] ?? value
+                      }
+                    </SelectValue>
                   </SelectTrigger>
                   <SelectContent>
                     {VIOLATION_TYPES.map((t) => (
