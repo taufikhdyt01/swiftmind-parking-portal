@@ -93,12 +93,24 @@ Table notifications {
   Note: 'notification service'
 }
 
-// Group tables by owning service for readability in dbdiagram.
-TableGroup identity     { users }
-TableGroup rules        { rule_versions }
-TableGroup violation    { plates violations }
-TableGroup payment      { invoices payments }
-TableGroup notification { notifications }
+// Group tables by owning service for readability in dbdiagram (one table per line).
+TableGroup identity {
+  users
+}
+TableGroup rules {
+  rule_versions
+}
+TableGroup violation {
+  plates
+  violations
+}
+TableGroup payment {
+  invoices
+  payments
+}
+TableGroup notification {
+  notifications
+}
 
 // Relationships (logical across services; the only real same-service FK is payments.invoice_id).
 Ref: violations.plate           > plates.plate
