@@ -23,9 +23,8 @@ const ROLE_CARDS: Record<string, RoleCard[]> = {
     { title: "All violations", desc: "Browse every issued violation and its applied rule version.", href: "/violations" },
   ],
   member: [
-    { title: "My violations", desc: "See violations issued against your plates.", href: "/violations" },
     { title: "Pay a fine", desc: "Settle an outstanding fine via the payment provider.", href: "/pay" },
-    { title: "My history", desc: "Review past violations, fines, and payment status.", href: "/violations" },
+    { title: "My violations & history", desc: "Every violation on your plates with its fine, the rule version applied, and payment status.", href: "/violations" },
   ],
 };
 
