@@ -26,8 +26,23 @@ func (h *Handler) Routes() http.Handler {
 	r.Get("/health", httpx.Health)
 	r.Post("/", h.create)
 	r.Get("/", h.list)
+	r.Get("/{id}", h.get)
 	r.Get("/{id}/photo", h.photo)
 	return r
+}
+
+func (h *Handler) get(w http.ResponseWriter, r *http.Request) {
+	v, err := h.svc.Get(r.Context(), chi.URLParam(r, "id"),
+		r.Header.Get(domain.HeaderUserRole), r.Header.Get(domain.HeaderUserEmail))
+	if err != nil {
+		if errors.Is(err, ErrNotFound) {
+			httpx.Error(w, http.StatusNotFound, "violation not found")
+			return
+		}
+		httpx.Error(w, http.StatusInternalServerError, "internal error")
+		return
+	}
+	httpx.JSON(w, http.StatusOK, v)
 }
 
 func (h *Handler) photo(w http.ResponseWriter, r *http.Request) {

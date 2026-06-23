@@ -5,6 +5,10 @@ export function listViolations(): Promise<Violation[]> {
   return api<{ violations: Violation[] }>("/violations").then((r) => r.violations);
 }
 
+export function getViolation(id: string): Promise<Violation> {
+  return api<Violation>(`/violations/${id}`);
+}
+
 export interface CreateViolationInput {
   plate: string;
   violation_type: string;

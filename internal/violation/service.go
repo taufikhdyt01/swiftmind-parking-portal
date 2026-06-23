@@ -137,6 +137,24 @@ func (s *Service) Create(ctx context.Context, in CreateInput, photo *Photo) (*Vi
 	return v, nil
 }
 
+// Get returns a single violation visible to the caller — officers see any,
+// members only their own — with its photo URL attached. A member requesting
+// someone else's violation gets ErrNotFound (no existence leak).
+func (s *Service) Get(ctx context.Context, id, role, email string) (*Violation, error) {
+	v, err := s.store.Get(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+	if v == nil {
+		return nil, ErrNotFound
+	}
+	if role == domain.RoleMember.String() && v.OwnerEmail != email {
+		return nil, ErrNotFound
+	}
+	attachPhotoURL(v)
+	return v, nil
+}
+
 // MarkPaid flips a violation to paid. Driven by the payment.completed event so
 // the member no longer owes the fine and it stops counting as a prior unpaid.
 func (s *Service) MarkPaid(ctx context.Context, violationID string) error {

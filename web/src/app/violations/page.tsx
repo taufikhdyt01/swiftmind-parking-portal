@@ -86,7 +86,11 @@ export default function ViolationsPage() {
                   </TableHeader>
                   <TableBody>
                     {violations.data?.map((v) => (
-                      <TableRow key={v.id}>
+                      <TableRow
+                        key={v.id}
+                        className="hover:bg-accent/50 cursor-pointer"
+                        onClick={() => router.push(`/violations/${v.id}`)}
+                      >
                         <TableCell className="font-medium">{v.plate}</TableCell>
                         <TableCell>
                           {labelForType(v.violation_type)}
@@ -122,6 +126,7 @@ export default function ViolationsPage() {
                               href={v.photo_url}
                               target="_blank"
                               rel="noreferrer"
+                              onClick={(e) => e.stopPropagation()}
                               className="text-sm underline"
                             >
                               View
