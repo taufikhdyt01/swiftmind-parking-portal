@@ -119,12 +119,9 @@ export default function PayPage() {
                           </TableCell>
                           <TableCell>
                             {inv.status === "paid" ? (
-                              <span
-                                className="text-muted-foreground block max-w-40 truncate text-right font-mono text-xs"
-                                title={inv.transaction_id}
-                              >
+                              <div className="text-muted-foreground text-right font-mono text-xs whitespace-nowrap">
                                 {inv.transaction_id ?? "—"}
-                              </span>
+                              </div>
                             ) : (
                               <div className="flex items-center justify-end gap-2">
                                 <Select
