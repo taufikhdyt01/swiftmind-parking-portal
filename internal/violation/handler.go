@@ -8,8 +8,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"swiftmind/pkg/domain"
-	"swiftmind/pkg/httpx"
+	"parkwatch/pkg/domain"
+	"parkwatch/pkg/httpx"
 )
 
 const maxPhotoBytes = 10 << 20 // 10 MiB

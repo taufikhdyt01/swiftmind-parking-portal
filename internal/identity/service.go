@@ -6,8 +6,8 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"swiftmind/pkg/domain"
-	"swiftmind/pkg/jwt"
+	"parkwatch/pkg/domain"
+	"parkwatch/pkg/jwt"
 )
 
 // ErrInvalidCredentials is returned for unknown email or wrong password.
@@ -53,8 +53,8 @@ func (s *Service) Seed(ctx context.Context) error {
 		return nil
 	}
 	seeds := []seedUser{
-		{"officer@swiftmind.test", "password123", "Olivia Officer", domain.RoleOfficer.String()},
-		{"member@swiftmind.test", "password123", "Mike Member", domain.RoleMember.String()},
+		{"officer@parkwatch.test", "password123", "Olivia Officer", domain.RoleOfficer.String()},
+		{"member@parkwatch.test", "password123", "Mike Member", domain.RoleMember.String()},
 	}
 	for _, su := range seeds {
 		hash, err := bcrypt.GenerateFromPassword([]byte(su.password), bcrypt.DefaultCost)

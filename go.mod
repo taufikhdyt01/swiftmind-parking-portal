@@ -1,4 +1,4 @@
-module swiftmind
+module parkwatch
 
 go 1.26.4
 

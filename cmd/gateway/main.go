@@ -6,11 +6,11 @@ import (
 	"os"
 	"time"
 
-	"swiftmind/internal/gateway"
-	"swiftmind/pkg/config"
-	"swiftmind/pkg/httpx"
-	"swiftmind/pkg/jwt"
-	"swiftmind/pkg/logging"
+	"parkwatch/internal/gateway"
+	"parkwatch/pkg/config"
+	"parkwatch/pkg/httpx"
+	"parkwatch/pkg/jwt"
+	"parkwatch/pkg/logging"
 )
 
 func main() {
@@ -18,7 +18,7 @@ func main() {
 
 	jm := jwt.NewManager(
 		config.Get("JWT_SECRET", "dev-secret"),
-		config.Get("JWT_ISSUER", "swiftmind"),
+		config.Get("JWT_ISSUER", "parkwatch"),
 		config.Duration("ACCESS_TOKEN_TTL", 24*time.Hour),
 	)
 

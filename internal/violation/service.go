@@ -10,11 +10,11 @@ import (
 
 	"github.com/google/uuid"
 
-	"swiftmind/pkg/broker"
-	"swiftmind/pkg/domain"
-	"swiftmind/pkg/events"
-	"swiftmind/pkg/fine"
-	"swiftmind/pkg/objstore"
+	"parkwatch/pkg/broker"
+	"parkwatch/pkg/domain"
+	"parkwatch/pkg/events"
+	"parkwatch/pkg/fine"
+	"parkwatch/pkg/objstore"
 )
 
 // repeatWindow is the look-back period for prior unpaid violations.
@@ -59,7 +59,7 @@ type CreateInput struct {
 
 // Seed registers the demo member's plate.
 func (s *Service) Seed(ctx context.Context) error {
-	return s.store.SeedPlate(ctx, "B1234ABC", "member@swiftmind.test")
+	return s.store.SeedPlate(ctx, "B1234ABC", "member@parkwatch.test")
 }
 
 // Create prices a violation against the active ruleset, persists it with an

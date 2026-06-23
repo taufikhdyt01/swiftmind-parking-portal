@@ -1,4 +1,4 @@
-# Swiftmind — Parking Violation Portal
+# ParkWatch — Parking Violation Portal
 
 Fullstack technical assignment (Tan Digital 2026). A single web app for two roles — **Officer** and
 **Member** — backed by Go microservices behind a single API Gateway. Fine rules are versioned, and
@@ -57,8 +57,8 @@ stays first-party (no CORS in the normal flow).
 
 | Role    | Email                      | Password      |
 |---------|----------------------------|---------------|
-| Officer | `officer@swiftmind.test`   | `password123` |
-| Member  | `member@swiftmind.test`    | `password123` |
+| Officer | `officer@parkwatch.test`   | `password123` |
+| Member  | `member@parkwatch.test`    | `password123` |
 
 The seeded plate **`B1234ABC`** belongs to the member, so a violation an officer files against it
 shows up in the member's "My violations" and "Pay a fine" views.
@@ -77,8 +77,8 @@ shows up in the member's "My violations" and "Pay a fine" views.
 |---------------|------------------------------|
 | Web app       | http://localhost:3000        |
 | API Gateway   | http://localhost:8080        |
-| RabbitMQ UI   | http://localhost:15672 (swiftmind / swiftmind) |
-| MinIO Console | http://localhost:9001 (swiftmind / swiftmind123) |
+| RabbitMQ UI   | http://localhost:15672 (parkwatch / parkwatch) |
+| MinIO Console | http://localhost:9001 (parkwatch / parkwatch123) |
 
 ## Tests
 

@@ -9,8 +9,8 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
-	"swiftmind/pkg/domain"
-	"swiftmind/pkg/httpx"
+	"parkwatch/pkg/domain"
+	"parkwatch/pkg/httpx"
 )
 
 // Router builds the full gateway HTTP handler.

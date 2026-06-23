@@ -10,7 +10,7 @@ import (
 
 	amqp "github.com/rabbitmq/amqp091-go"
 
-	"swiftmind/pkg/events"
+	"parkwatch/pkg/events"
 )
 
 // Broker holds a connection and channel to RabbitMQ.

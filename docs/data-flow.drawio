@@ -5,7 +5,7 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
-        <mxCell id="title" value="Swiftmind — Data Flow Between Services (solid = sync HTTP, dashed = async event via RabbitMQ)" style="text;html=1;fontSize=16;fontStyle=1;align=left;" vertex="1" parent="1">
+        <mxCell id="title" value="ParkWatch — Data Flow Between Services (solid = sync HTTP, dashed = async event via RabbitMQ)" style="text;html=1;fontSize=16;fontStyle=1;align=left;" vertex="1" parent="1">
           <mxGeometry x="40" y="20" width="900" height="30" as="geometry" />
         </mxCell>
 
@@ -32,7 +32,7 @@
           <mxGeometry x="840" y="320" width="160" height="64" as="geometry" />
         </mxCell>
 
-        <mxCell id="mq" value="RabbitMQ — swiftmind.events (topic exchange)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffedd5;strokeColor=#ea580c;fontColor=#9a3412;fontStyle=1" vertex="1" parent="1">
+        <mxCell id="mq" value="RabbitMQ — parkwatch.events (topic exchange)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffedd5;strokeColor=#ea580c;fontColor=#9a3412;fontStyle=1" vertex="1" parent="1">
           <mxGeometry x="320" y="480" width="480" height="48" as="geometry" />
         </mxCell>
 

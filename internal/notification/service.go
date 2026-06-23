@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"swiftmind/pkg/events"
+	"parkwatch/pkg/events"
 )
 
 // Notification kinds.

@@ -1,4 +1,4 @@
-# Swiftmind — Design Document
+# ParkWatch — Design Document
 
 A Parking Violation Portal where **Officers** issue violations and **Members** pay the resulting
 fines. Fine rules are versioned, and every violation stores an immutable snapshot of how its fine
@@ -36,7 +36,7 @@ denormalized at write time.
   fine.
 - `member → payment`: paying an invoice is a direct call that returns the charge result.
 
-**Asynchronous (RabbitMQ topic exchange `swiftmind.events`):**
+**Asynchronous (RabbitMQ topic exchange `parkwatch.events`):**
 - `violation.created` → **payment** creates an invoice; **notification** notifies the member.
 - `payment.completed` → **violation** marks the violation paid (so it stops counting as a prior
   unpaid); **notification** notifies the member.
@@ -89,7 +89,7 @@ unable to alter a past fine. `invoices` and `payments` carry the money forward u
   trusted headers. Downstream services are only reachable via the gateway on the internal network.
 - **Plate ownership**: a `plates` registry maps a plate to a member's email; ownership is
   denormalized onto each violation so members see/pay only their own fines without a cross-service
-  join. (Demo seed: `B1234ABC` → `member@swiftmind.test`.)
+  join. (Demo seed: `B1234ABC` → `member@parkwatch.test`.)
 - **Schema management**: each service bootstraps its own tables on startup
   (`CREATE TABLE IF NOT EXISTS`) and seeds idempotently. **In production this would be replaced
   with versioned migrations** — chosen here to keep the reviewer's "one command to run it" simple.

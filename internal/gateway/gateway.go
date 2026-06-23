@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	"swiftmind/pkg/jwt"
+	"parkwatch/pkg/jwt"
 )
 
 // Config holds the downstream service URLs and cookie behaviour.

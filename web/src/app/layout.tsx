@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Swiftmind — Parking Violation Portal",
+  title: "ParkWatch — Parking Violation Portal",
   description: "Officer and member portal for parking violations and fines.",
 };
 

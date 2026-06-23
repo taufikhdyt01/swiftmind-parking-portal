@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"strings"
 
-	"swiftmind/pkg/domain"
-	"swiftmind/pkg/httpx"
-	"swiftmind/pkg/jwt"
+	"parkwatch/pkg/domain"
+	"parkwatch/pkg/httpx"
+	"parkwatch/pkg/jwt"
 )
 
 type ctxKey string

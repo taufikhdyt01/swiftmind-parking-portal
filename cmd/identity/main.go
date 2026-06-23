@@ -7,12 +7,12 @@ import (
 	"os"
 	"time"
 
-	"swiftmind/internal/identity"
-	"swiftmind/pkg/config"
-	"swiftmind/pkg/db"
-	"swiftmind/pkg/httpx"
-	"swiftmind/pkg/jwt"
-	"swiftmind/pkg/logging"
+	"parkwatch/internal/identity"
+	"parkwatch/pkg/config"
+	"parkwatch/pkg/db"
+	"parkwatch/pkg/httpx"
+	"parkwatch/pkg/jwt"
+	"parkwatch/pkg/logging"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 	ctx := context.Background()
 
 	pool, err := db.Connect(ctx, config.Get("DATABASE_URL",
-		"postgres://swiftmind:swiftmind@localhost:5432/swiftmind?sslmode=disable"))
+		"postgres://parkwatch:parkwatch@localhost:5432/parkwatch?sslmode=disable"))
 	if err != nil {
 		logger.Error("db connect", "err", err)
 		os.Exit(1)
@@ -35,7 +35,7 @@ func main() {
 
 	jm := jwt.NewManager(
 		config.Get("JWT_SECRET", "dev-secret"),
-		config.Get("JWT_ISSUER", "swiftmind"),
+		config.Get("JWT_ISSUER", "parkwatch"),
 		config.Duration("ACCESS_TOKEN_TTL", 24*time.Hour),
 	)
 

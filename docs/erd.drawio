@@ -5,7 +5,7 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
 
-        <mxCell id="title" value="Swiftmind — ERD (each service owns its tables; dashed = logical cross-service reference; money = integer IDR)" style="text;html=1;fontSize=15;fontStyle=1;align=left;" vertex="1" parent="1">
+        <mxCell id="title" value="ParkWatch — ERD (each service owns its tables; dashed = logical cross-service reference; money = integer IDR)" style="text;html=1;fontSize=15;fontStyle=1;align=left;" vertex="1" parent="1">
           <mxGeometry x="40" y="20" width="1000" height="26" as="geometry" />
         </mxCell>
 

@@ -8,9 +8,9 @@ import (
 
 	"github.com/redis/go-redis/v9"
 
-	"swiftmind/pkg/broker"
-	"swiftmind/pkg/domain"
-	"swiftmind/pkg/events"
+	"parkwatch/pkg/broker"
+	"parkwatch/pkg/domain"
+	"parkwatch/pkg/events"
 )
 
 var (

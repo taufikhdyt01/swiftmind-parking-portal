@@ -6,7 +6,7 @@ import "time"
 
 // Topic exchange and routing keys for the RabbitMQ event bus.
 const (
-	Exchange = "swiftmind.events"
+	Exchange = "parkwatch.events"
 
 	RoutingViolationCreated = "violation.created"
 	RoutingPaymentCompleted = "payment.completed"

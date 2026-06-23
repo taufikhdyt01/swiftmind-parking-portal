@@ -13,7 +13,7 @@ import (
 	"math"
 	"time"
 
-	"swiftmind/pkg/domain"
+	"parkwatch/pkg/domain"
 )
 
 // Ruleset is the full, versioned configuration that drives a fine calculation.

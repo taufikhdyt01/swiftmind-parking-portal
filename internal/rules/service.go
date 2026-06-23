@@ -5,7 +5,7 @@ import (
 	"errors"
 	"log/slog"
 
-	"swiftmind/pkg/fine"
+	"parkwatch/pkg/fine"
 )
 
 // ErrNoActiveRuleset means no rule version has been published yet.

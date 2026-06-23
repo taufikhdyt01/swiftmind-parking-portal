@@ -6,8 +6,8 @@ import (
 	"net/url"
 	"strings"
 
-	"swiftmind/pkg/domain"
-	"swiftmind/pkg/httpx"
+	"parkwatch/pkg/domain"
+	"parkwatch/pkg/httpx"
 )
 
 // proxyTo reverse-proxies a request to target, trimming stripPrefix from the

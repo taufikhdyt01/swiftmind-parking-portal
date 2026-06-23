@@ -18,8 +18,8 @@ import { Label } from "@/components/ui/label";
 import { useAuth } from "@/contexts/auth-context";
 
 const DEMO_ACCOUNTS = [
-  { label: "Officer", email: "officer@swiftmind.test", password: "password123" },
-  { label: "Member", email: "member@swiftmind.test", password: "password123" },
+  { label: "Officer", email: "officer@parkwatch.test", password: "password123" },
+  { label: "Member", email: "member@parkwatch.test", password: "password123" },
 ];
 
 export default function LoginPage() {
@@ -54,7 +54,7 @@ export default function LoginPage() {
 
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-bold tracking-tight">Swiftmind</h1>
+          <h1 className="text-2xl font-bold tracking-tight">ParkWatch</h1>
           <p className="text-muted-foreground mt-1 text-sm">
             Parking Violation Portal
           </p>
@@ -77,7 +77,7 @@ export default function LoginPage() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="you@swiftmind.test"
+                  placeholder="you@parkwatch.test"
                 />
               </div>
               <div className="space-y-2">

@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"swiftmind/pkg/domain"
-	"swiftmind/pkg/httpx"
+	"parkwatch/pkg/domain"
+	"parkwatch/pkg/httpx"
 )
 
 // Handler exposes the notification HTTP API behind the gateway.

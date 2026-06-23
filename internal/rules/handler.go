@@ -7,9 +7,9 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"swiftmind/pkg/domain"
-	"swiftmind/pkg/fine"
-	"swiftmind/pkg/httpx"
+	"parkwatch/pkg/domain"
+	"parkwatch/pkg/fine"
+	"parkwatch/pkg/httpx"
 )
 
 // Handler exposes the rules HTTP API. It runs behind the gateway and trusts the

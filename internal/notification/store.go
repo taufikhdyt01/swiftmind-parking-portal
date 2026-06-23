@@ -7,7 +7,7 @@ import (
 
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"swiftmind/pkg/db"
+	"parkwatch/pkg/db"
 )
 
 //go:embed schema.sql

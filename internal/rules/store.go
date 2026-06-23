@@ -10,8 +10,8 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	"swiftmind/pkg/db"
-	"swiftmind/pkg/fine"
+	"parkwatch/pkg/db"
+	"parkwatch/pkg/fine"
 )
 
 //go:embed schema.sql

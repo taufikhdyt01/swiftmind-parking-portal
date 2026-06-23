@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"swiftmind/pkg/httpx"
+	"parkwatch/pkg/httpx"
 )
 
 // Handler exposes the identity HTTP API. It sits behind the gateway, so it does

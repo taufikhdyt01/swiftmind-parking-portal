@@ -5,7 +5,7 @@
     </marker>
   </defs>
   <rect x="0" y="0" width="1120" height="800" fill="#ffffff"/>
-  <text x="24" y="34" font-size="20" font-weight="700" fill="#0f172a">Swiftmind — Entity Relationship Diagram</text>
+  <text x="24" y="34" font-size="20" font-weight="700" fill="#0f172a">ParkWatch — Entity Relationship Diagram</text>
   <text x="24" y="56" fill="#64748b">Each service owns its tables (no cross-service FKs). Dashed = logical cross-service reference. Money = integer IDR.</text>
 
   <!-- users (identity) -->

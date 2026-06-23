@@ -23,7 +23,7 @@ export function AppHeader() {
     <header className="bg-card border-b">
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
         <div className="flex items-center gap-3">
-          <span className="font-bold tracking-tight">Swiftmind</span>
+          <span className="font-bold tracking-tight">ParkWatch</span>
           <Badge variant="secondary" className="capitalize">
             {user.role}
           </Badge>

@@ -6,13 +6,13 @@ import (
 	"encoding/json"
 	"os"
 
-	"swiftmind/internal/notification"
-	"swiftmind/pkg/broker"
-	"swiftmind/pkg/config"
-	"swiftmind/pkg/db"
-	"swiftmind/pkg/events"
-	"swiftmind/pkg/httpx"
-	"swiftmind/pkg/logging"
+	"parkwatch/internal/notification"
+	"parkwatch/pkg/broker"
+	"parkwatch/pkg/config"
+	"parkwatch/pkg/db"
+	"parkwatch/pkg/events"
+	"parkwatch/pkg/httpx"
+	"parkwatch/pkg/logging"
 )
 
 func main() {
@@ -20,7 +20,7 @@ func main() {
 	ctx := context.Background()
 
 	pool, err := db.Connect(ctx, config.Get("DATABASE_URL",
-		"postgres://swiftmind:swiftmind@localhost:5432/swiftmind?sslmode=disable"))
+		"postgres://parkwatch:parkwatch@localhost:5432/parkwatch?sslmode=disable"))
 	if err != nil {
 		logger.Error("db connect", "err", err)
 		os.Exit(1)
@@ -34,7 +34,7 @@ func main() {
 	}
 	svc := notification.NewService(store)
 
-	b, err := broker.Connect(config.Get("RABBITMQ_URL", "amqp://swiftmind:swiftmind@localhost:5672/"), logger)
+	b, err := broker.Connect(config.Get("RABBITMQ_URL", "amqp://parkwatch:parkwatch@localhost:5672/"), logger)
 	if err != nil {
 		logger.Error("rabbitmq connect", "err", err)
 		os.Exit(1)

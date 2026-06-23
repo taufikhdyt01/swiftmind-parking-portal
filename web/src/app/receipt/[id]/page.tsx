@@ -50,7 +50,7 @@ export default function ReceiptPage() {
       ) : (
         <div className="rounded-xl border bg-white p-8 text-slate-900 shadow-sm print:border-0 print:shadow-none">
           <div className="mb-6 text-center">
-            <p className="text-lg font-bold tracking-tight">Swiftmind</p>
+            <p className="text-lg font-bold tracking-tight">ParkWatch</p>
             <p className="text-xs tracking-widest text-slate-500 uppercase">
               Payment Receipt
             </p>

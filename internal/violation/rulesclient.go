@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"time"
 
-	"swiftmind/pkg/fine"
+	"parkwatch/pkg/fine"
 )
 
 // ActiveRuleset is the subset of the rules service's response we need to price
